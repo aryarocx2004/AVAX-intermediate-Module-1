@@ -31,15 +31,21 @@ The external function setValue enables the contract owner to set its value.
 
 ## Implementation of require() function
 
-require(msg.sender == owner, "Only the owner can set the value"): Validates that only the owner can modify the value.
+### require(msg.sender == owner, "Only the owner can set the value"):
+
+Validates that only the owner can modify the value.
 
 ## Implementation of assert() function
 
-assert(_newValue > 0): Verifies an internal condition; a false result triggers a state-reverting error.
+### assert(_newValue > 0): 
+
+Verifies an internal condition; a false result triggers a state-reverting error.
 
 ## Implementation of revert() function
 
-if (_newValue == 42) { revert("The value cannot be 42"); }: Employs revert() with a customized error message to reverse the transaction if the new value is 42.
+### if (_newValue == 42) { revert("The value cannot be 42"); }: 
+
+Employs revert() with a customized error message to reverse the transaction if the new value is 42.
 If the specified conditions are met, the function assigns the provided _newValue to the value variable.
 
 ## Getting Started
