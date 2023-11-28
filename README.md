@@ -1,52 +1,42 @@
 ## ETH + AVAX Intermediate Module 1
 
-This is a simple solidity smart contract for demonstrating the use cases of require(), assert() and revert() statements.
+This is a simple solidity smart contract for demonstrating the use cases of require(), assert() and revert() statements for checking the eligibility of driver's license.
 
 ## Description
 
-The presented Solidity contract, named ErrorHandlingContract, exemplifies the application scenarios of error-handling functions require(), assert(), and revert().
+The presented Solidity contract, named DriversLicenseEligibility Contract, exemplifies the application scenarios of error-handling functions require(), assert(), and revert() for checking the eligibility for a driver's license.
 
-```
-function setValue(uint256 _newValue) external {
-        // Using require() for input validation
-        require(msg.sender == owner, "Only the owner can set the value");
-        
-        // Using assert() for internal error checking
-        assert(_newValue > 0);
-
-        // Using revert() with a custom error message
-        if (_newValue == 42) {
-            revert("The value cannot be 42");
-        }
-
-        // Set the new value
-        value = _newValue;
-    }
-
-```
-
-setValue Function:
-
-The external function setValue enables the contract owner to set its value.
 
 ## Implementation of require() function
 
-### require(msg.sender == owner, "Only the owner can set the value"):
+```
+require(age >= 16, "Minimum age for a driver's license is 16 years");
+```
 
-Validates that only the owner can modify the value.
+Uses require() to make sure that the minimum age for license is 16.
 
 ## Implementation of assert() function
 
-### assert(_newValue > 0): 
+```
+ assert(age >= 0);
+```
 
-Verifies an internal condition; a false result triggers a state-reverting error.
+Uses assert() to make sure that age enetred is a positive integer.
+
 
 ## Implementation of revert() function
 
-### if (_newValue == 42) { revert("The value cannot be 42"); }: 
+```
+ if (age >= 18) {
+            return "Eligible for a driver's license";
+        } else {
+            // Use revert to revert the transaction with a custom message
+            revert("Not eligible for a driver's license yet");
+        }
 
-Employs revert() with a customized error message to reverse the transaction if the new value is 42.
-If the specified conditions are met, the function assigns the provided _newValue to the value variable.
+```
+
+Employs revert() to check if the variable "age" is greater than or equal to 18; if true, it returns a message indicating eligibility for a driver's license; otherwise, it reverts the transaction with a custom message stating the person is not eligible yet.
 
 ## Getting Started
 
@@ -54,7 +44,7 @@ If the specified conditions are met, the function assigns the provided _newValue
 
 To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
 
-Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., project.sol). 
+Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., functions_and_error.sol). 
 
 Copy and paste the following code into the file:
 
@@ -62,35 +52,30 @@ Copy and paste the following code into the file:
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ErrorHandlingContract {
-    address public owner;
-    uint256 public value;
+contract DriversLicenseEligibility {
 
-    constructor() {
-        owner = msg.sender;
-    }
+    function checkEligibility(uint256 age) external pure returns (string memory) {
+        // Use assert to check an assertion
+        assert(age >= 0);
 
-    function setValue(uint256 _newValue) external {
-        // Using require() for input validation
-        require(msg.sender == owner, "Only the owner can set the value");
-        
-        // Using assert() for internal error checking
-        assert(_newValue > 0);
+        // Use require to check a condition
+        require(age >= 16, "Minimum age for a driver's license is 16 years");
 
-        // Using revert() with a custom error message
-        if (_newValue == 42) {
-            revert("The value cannot be 42");
+        // Eligibility criteria
+        if (age >= 18) {
+            return "Eligible for a driver's license";
+        } else {
+            // Use revert to revert the transaction with a custom message
+            revert("Not eligible for a driver's license yet");
         }
-
-        // Set the new value
-        value = _newValue;
     }
 }
+
 ```
 
 To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.18" (or another compatible version), and then click on the "Compile functions_and_errors.sol" button.
 
-Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "ErrorHandlingContact" contract from the dropdown menu, and then click on the "Deploy" button.
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "DriversLicenseEligibility" contract from the dropdown menu, and then click on the "Deploy" button.
 
 Confirm Contract Deployment: Once the deployment is successful, you will receive a transaction hash that represents the contract deployment transaction. You can use an Ethereum block explorer like Etherscan to search for the contract address associated with that transaction hash. This confirms that the contract is deployed on the Ethereum network.
 
